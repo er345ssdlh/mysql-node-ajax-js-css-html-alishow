@@ -1,0 +1,137 @@
+{{extend '../layout.html'}}
+{{block 'content'}}
+<div class="container-fluid">
+  <div class="page-title">
+    <h1>图片轮播</h1>
+  </div>
+  <!-- 有错误信息时展示 -->
+  <!-- <div class="alert alert-danger">
+    <strong>错误！</strong>发生XXX错误
+  </div> -->
+  <div class="row">
+    <div class="col-md-4">
+      <form>
+        <h2>添加新轮播内容</h2>
+        <div class="form-group">
+          <label for="image">图片</label>
+          <!-- show when image chose -->
+          <img class="help-block thumbnail" style="display: none">
+          <input id="image" class="form-control" name="image" type="file">
+        </div>
+        <input type="hidden" name="image_hidden" id="hid">
+        <div class="form-group">
+          <label for="text">文本</label>
+          <input id="text" class="form-control" name="text" type="text" placeholder="文本">
+        </div>
+        <div class="form-group">
+          <label for="link">链接</label>
+          <input id="link" class="form-control" name="link" type="text" placeholder="链接">
+        </div>
+        <div class="form-group">
+          <button id="upp" class="btn btn-primary" type="button">添加</button>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-8">
+      <div class="page-action">
+        <!-- show when multiple checked -->
+        <a class="btn btn-danger btn-sm" href="javascript:;" style="display: none">批量删除</a>
+      </div>
+      <table class="table table-striped table-bordered table-hover">
+        <thead>
+          <tr>
+            <th class="text-center" width="40"><input type="checkbox"></th>
+            <th class="text-center">图片</th>
+            <th>文本</th>
+            <th>链接</th>
+            <th class="text-center" width="100">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <!-- 模板引擎 -->
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{{/block}}
+{{block 'js'}}
+<script>
+  //////////////////文件域上传请求
+  $('#image').change(function () {
+    let fd = new FormData();
+    fd.append('avatar', this.files[0]);
+    $.ajax({
+      url: '/api/uploads',
+      type: 'post',
+      data: fd,
+      processData: false,
+      contentType: false,
+      success: function (r) {
+        // console.log(r);
+        if (r.code == '200') {
+          $('#hid').val(r.path);
+        } else {
+          alert(r.message);
+        }
+      }
+    })
+  });
+</script>
+<script>
+  /////添加轮播图新页面
+  $('#upp').click(function () {
+    $.ajax({
+      url: '/admin/other/addSildes',
+      type: 'post',
+      data: $('form').serialize(),
+      success: function (r) {
+        // console.log(r);
+        if (r.code == '200') {
+          alert(r.message);
+          // 在这里刷新页面是为了右边的轮播图预览使用
+          location.reload();
+        }
+      }
+    })
+  })
+</script>
+<script src="assets/vendors/art-template/template-web.js"></script>
+<script id="moban" type="text/html">
+  {#each shuju#}
+  <tr>
+    <td class="text-center"><input type="checkbox"></td>
+    <td class="text-center"><img class="slide" src="{#$value.pic_url#}"></td>
+    <td>{#$value.pic_text#}</td>
+    <td>{#$value.pic_link#}</td>
+    <td class="text-center">
+      <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
+    </td>
+  </tr>
+  {#/each#}
+</script>
+<script>
+  // 标准语法的界定符规则
+  template.defaults.rules[1].test = /{#([@#]?)[ \t]*(\/?)([\w\W]*?)[ \t]*#}/;
+  /////////////////预览轮播图项因为我们不在负责后端，所以后端不再使用模板引擎，而把数据交给我们，我们在前端使用
+  $.ajax({
+    url: '/api/other/slides',
+    type: 'post',
+    data: null,
+    dataType:'json',
+    success: function (r) {
+      // console.log(r);
+      if (r.code == '200') {
+        let html = template('moban',{
+          shuju:r.data
+        })
+        $('tbody').html(html);
+      } else {
+        alert(r.code);
+      }
+    },
+  })
+</script>
+{{/block}}

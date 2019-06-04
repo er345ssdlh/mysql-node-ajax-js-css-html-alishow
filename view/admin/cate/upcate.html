@@ -1,0 +1,55 @@
+{{extend '../layout.html'}}
+
+{{block 'content'}}
+<div class="container-fluid">
+  <div class="page-title">
+    <h1>添加栏目</h1>
+  </div>
+  <!-- 有错误信息时展示 -->
+  <!-- <div class="alert alert-danger">
+        <strong>错误！</strong>发生XXX错误
+      </div> -->
+  <div class="row">
+    <div class="col-md-4">
+      <form id="mainForm">
+        <h2>修改栏目</h2>
+        <div class="form-group">
+          <label for="name">名称</label>
+          <input id="name" class="form-control" name="cate_name" type="text" placeholder="分类名称"
+            value="{{shuju.cate_name}}">
+        </div>
+        <div class="form-group">
+          <label for="icon">图标</label>
+          <input id="icon" class="form-control" name="cate_icon" type="text" placeholder="图标"
+            value="{{shuju.cate_icon}}">
+        </div>
+        <input type="hidden" name="cate_id" value="{{shuju.cate_id}}">
+        <div class="form-group">
+          <button id="addBtn" class="btn btn-primary"  type="button">修改</button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>
+{{/block}}
+
+{{block 'js'}}
+<script>
+   $('.btn').click(() => {
+    $.ajax({
+      type:'post',
+      url:'/admin/cate/upl',
+      data:$('form').serialize(),
+      success:function(r){
+        if(r.code=='200'){
+          alert(r.message);
+          location.href='/admin/cate/cate.html'
+        }else if(r.code=='201'){
+          alert(r.message);
+        }
+      }
+    })
+  })
+</script>
+{{/block}}
