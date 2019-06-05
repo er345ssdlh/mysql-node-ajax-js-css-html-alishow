@@ -6,10 +6,11 @@ let fn = function (sql, data, callback) {
         port: 3306,
         user: 'root',
         password: 'root',
-        database: 'alishow'
+        database: 'alishow',
+        multipleStatements: true,
     })
     conn.connect();
     conn.query(sql, data, callback);
     conn.end();
 }
-module.exports=fn;
+module.exports = fn;

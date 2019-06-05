@@ -45,6 +45,12 @@ app.use(session({
         maxAge: 3600000
     }
 }))
+
+
+// admin路由模块 导入
+const home = require(aliRootDir + '/router/home');
+app.use(home);
+
 // 没登录就去登录
 app.use((req, res, next) => {
     if (req.session.isLogin || req.url == '/admin/login.html' || req.url === '/api/login/checkLogin') {
@@ -55,10 +61,6 @@ app.use((req, res, next) => {
     }
 });
 
-
-// admin路由模块 导入
-const home = require(aliRootDir + '/router/home');
-app.use(home);
 const admin = require(aliRootDir + '/router/admin');
 app.use(admin);
 const admin_user = require(aliRootDir + '/router/admin_user');

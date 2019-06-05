@@ -4,30 +4,14 @@
 <div class="content">
   <div class="swipe">
     <ul class="swipe-wrapper">
+      {{each lunbotu}}
       <li>
-        <a href="#">
-          <img src="uploads/slide_1.jpg">
-          <span>XIU主题演示</span>
+        <a href="{{$value.pic_link}}">
+          <img src="{{$value.pic_url}}">
+          <span>{{$value.pic_text}}</span>
         </a>
       </li>
-      <li>
-        <a href="#">
-          <img src="uploads/slide_2.jpg">
-          <span>XIU主题演示</span>
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <img src="uploads/slide_1.jpg">
-          <span>XIU主题演示</span>
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <img src="uploads/slide_2.jpg">
-          <span>XIU主题演示</span>
-        </a>
-      </li>
+      {{/each}}
     </ul>
     <p class="cursor"><span class="active"></span><span></span><span></span><span></span></p>
     <a href="javascript:;" class="arrow prev"><i class="fa fa-chevron-left"></i></a>
@@ -36,182 +20,77 @@
   <div class="panel focus">
     <h3>焦点关注</h3>
     <ul>
+      {{each guanzhu}}
+      {{if $index==0}}
       <li class="large">
-        <a href="javascript:;">
-          <img src="uploads/hots_1.jpg" alt="">
-          <span>XIU主题演示</span>
-        </a>
-      </li>
+        {{else}}
       <li>
-        <a href="javascript:;">
-          <img src="uploads/hots_2.jpg" alt="">
-          <span>星球大战：原力觉醒视频演示 电影票68</span>
+        {{/if}}
+        <a href="/detail.html?id={{$value.article_id}}">
+          <img src="{{$value.article_file}}" alt="">
+          <span>{{$value.article_title}}</span>
         </a>
       </li>
-      <li>
-        <a href="javascript:;">
-          <img src="uploads/hots_3.jpg" alt="">
-          <span>你敢骑吗？全球第一辆全功能3D打印摩托车亮相</span>
-        </a>
-      </li>
-      <li>
-        <a href="javascript:;">
-          <img src="uploads/hots_4.jpg" alt="">
-          <span>又现酒窝夹笔盖新技能 城里人是不让人活了！</span>
-        </a>
-      </li>
-      <li>
-        <a href="javascript:;">
-          <img src="uploads/hots_5.jpg" alt="">
-          <span>又现酒窝夹笔盖新技能 城里人是不让人活了！</span>
-        </a>
-      </li>
+      {{/each}}
     </ul>
   </div>
   <div class="panel top">
     <h3>一周热门排行</h3>
     <ol>
+      {{each remen}}
       <li>
-        <i>1</i>
-        <a href="javascript:;">你敢骑吗？全球第一辆全功能3D打印摩托车亮相</a>
-        <a href="javascript:;" class="like">赞(964)</a>
-        <span>阅读 (18206)</span>
+        <!-- 这个是复合条件的排行 index代表数组排列的下标-->
+        <i>{{$index+1}}</i>
+        <a href="/detail.html?id={{$value.article_id}}">{{$value.article_title}}</a>
+        <a href="javascript:;" class="like">赞({{$value.article_good}})</a>
+        <span>阅读 ({{$value.article_click}})</span>
       </li>
-      <li>
-        <i>2</i>
-        <a href="javascript:;">又现酒窝夹笔盖新技能 城里人是不让人活了！</a>
-        <a href="javascript:;" class="like">赞(964)</a>
-        <span class="">阅读 (18206)</span>
-      </li>
-      <li>
-        <i>3</i>
-        <a href="javascript:;">实在太邪恶！照亮妹纸绝对领域与私处</a>
-        <a href="javascript:;" class="like">赞(964)</a>
-        <span>阅读 (18206)</span>
-      </li>
-      <li>
-        <i>4</i>
-        <a href="javascript:;">没有任何防护措施的摄影师在水下拍到了这些画面</a>
-        <a href="javascript:;" class="like">赞(964)</a>
-        <span>阅读 (18206)</span>
-      </li>
-      <li>
-        <i>5</i>
-        <a href="javascript:;">废灯泡的14种玩法 妹子见了都会心动</a>
-        <a href="javascript:;" class="like">赞(964)</a>
-        <span>阅读 (18206)</span>
-      </li>
+      {{/each}}
     </ol>
   </div>
   <div class="panel hots">
     <h3>热门推荐</h3>
     <ul>
+      {{each tuijian}}
       <li>
-        <a href="javascript:;">
-          <img src="uploads/hots_2.jpg" alt="">
-          <span>星球大战:原力觉醒视频演示 电影票68</span>
+        <a href="/detail.html?id={{$value.article_id}}">
+          <img src="{{$value.article_file}}" alt="">
+          <span>{{$value.article_title}}</span>
         </a>
       </li>
-      <li>
-        <a href="javascript:;">
-          <img src="uploads/hots_3.jpg" alt="">
-          <span>你敢骑吗？全球第一辆全功能3D打印摩托车亮相</span>
-        </a>
-      </li>
-      <li>
-        <a href="javascript:;">
-          <img src="uploads/hots_4.jpg" alt="">
-          <span>又现酒窝夹笔盖新技能 城里人是不让人活了！</span>
-        </a>
-      </li>
-      <li>
-        <a href="javascript:;">
-          <img src="uploads/hots_5.jpg" alt="">
-          <span>实在太邪恶！照亮妹纸绝对领域与私处</span>
-        </a>
-      </li>
+      {{/each}}
     </ul>
   </div>
   <div class="panel new">
     <h3>最新发布</h3>
+    {{each fabu}}
     <div class="entry">
       <div class="head">
-        <span class="sort">会生活</span>
-        <a href="javascript:;">星球大战：原力觉醒视频演示 电影票68</a>
+        <span class="sort">{{$value.cate_name}}</span>
+        <a href="/detail.html?id={{$value.article_id}}">{{$value.article_title}}</a>
       </div>
       <div class="main">
-        <p class="info">admin 发表于 2015-06-29</p>
+        <p class="info">{{$value.admin_nickname}} 发表于 {{$value.article_addtime}}</p>
         <p class="brief">
-          星球大战:原力觉醒：《星球大战:原力觉醒》中国首映盛典红毯，星球大战:原力觉醒：《星球大战:原力觉醒》中国首映盛典红毯，星球大战:原力觉醒：《星球大战:原力觉醒》中国首映盛典红毯星球大战:原力觉醒：《星球大战:原力觉醒》中国首映盛典红毯，星球大战:原力觉醒：《星球大战:原力觉醒》中国首映盛典红毯，星球大战:原力觉醒：《星球大战:原力觉醒》中国首映盛典红毯
+            {{$value.article_text}}
         </p>
         <p class="extra">
-          <span class="reading">阅读(3406)</span>
-          <span class="comment">评论(0)</span>
+          <span class="reading">阅读({{$value.cate_click}})</span>
+          <!-- <span class="comment">评论(0)</span> -->
           <a href="javascript:;" class="like">
             <i class="fa fa-thumbs-up"></i>
-            <span>赞(167)</span>
+            <span>赞({{$value.cate_good}})</span>
           </a>
           <a href="javascript:;" class="tags">
-            分类：<span>星球大战</span>
+            分类：<span>{{$value.cate_name}}</span>
           </a>
         </p>
         <a href="javascript:;" class="thumb">
-          <img src="uploads/hots_2.jpg" alt="">
+          <img src="{{$value.article_file}}" alt="">
         </a>
       </div>
     </div>
-    <div class="entry">
-      <div class="head">
-        <span class="sort">会生活</span>
-        <a href="javascript:;">星球大战：原力觉醒视频演示 电影票68</a>
-      </div>
-      <div class="main">
-        <p class="info">admin 发表于 2015-06-29</p>
-        <p class="brief">
-          星球大战:原力觉醒：《星球大战:原力觉醒》中国首映盛典红毯，星球大战:原力觉醒：《星球大战:原力觉醒》中国首映盛典红毯，星球大战:原力觉醒：《星球大战:原力觉醒》中国首映盛典红毯星球大战:原力觉醒：《星球大战:原力觉醒》中国首映盛典红毯，星球大战:原力觉醒：《星球大战:原力觉醒》中国首映盛典红毯，星球大战:原力觉醒：《星球大战:原力觉醒》中国首映盛典红毯
-        </p>
-        <p class="extra">
-          <span class="reading">阅读(3406)</span>
-          <span class="comment">评论(0)</span>
-          <a href="javascript:;" class="like">
-            <i class="fa fa-thumbs-up"></i>
-            <span>赞(167)</span>
-          </a>
-          <a href="javascript:;" class="tags">
-            分类：<span>星球大战</span>
-          </a>
-        </p>
-        <a href="javascript:;" class="thumb">
-          <img src="uploads/hots_2.jpg" alt="">
-        </a>
-      </div>
-    </div>
-    <div class="entry">
-      <div class="head">
-        <span class="sort">会生活</span>
-        <a href="javascript:;">星球大战：原力觉醒视频演示 电影票68</a>
-      </div>
-      <div class="main">
-        <p class="info">admin 发表于 2015-06-29</p>
-        <p class="brief">
-          星球大战:原力觉醒：《星球大战:原力觉醒》中国首映盛典红毯，星球大战:原力觉醒：《星球大战:原力觉醒》中国首映盛典红毯，星球大战:原力觉醒：《星球大战:原力觉醒》中国首映盛典红毯星球大战:原力觉醒：《星球大战:原力觉醒》中国首映盛典红毯，星球大战:原力觉醒：《星球大战:原力觉醒》中国首映盛典红毯，星球大战:原力觉醒：《星球大战:原力觉醒》中国首映盛典红毯
-        </p>
-        <p class="extra">
-          <span class="reading">阅读(3406)</span>
-          <span class="comment">评论(0)</span>
-          <a href="javascript:;" class="like">
-            <i class="fa fa-thumbs-up"></i>
-            <span>赞(167)</span>
-          </a>
-          <a href="javascript:;" class="tags">
-            分类：<span>星球大战</span>
-          </a>
-        </p>
-        <a href="javascript:;" class="thumb">
-          <img src="uploads/hots_2.jpg" alt="">
-        </a>
-      </div>
-    </div>
+    {{/each}}
   </div>
 </div>
 {{/block}}
